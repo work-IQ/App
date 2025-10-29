@@ -1,0 +1,161 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Free Fire — Pro Connect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#070710;--card:rgba(255,255,255,0.04);--glass:rgba(255,255,255,0.03);--accent1:#ff3b3b;--accent2:#ffd23b}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Nunito,system-ui,Arial;color:#fff}
+    body{display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}/* background GIF layer */
+.bg{
+  position:fixed;inset:0;z-index:0;background-position:center;background-size:cover;background-repeat:no-repeat;filter:blur(2px) brightness(0.45) saturate(1.2);
+  /* Replace the URL below with your Free Fire GIF if you have one */
+  background-image:url('https://i.imgur.com/6YqYhQX.gif');
+  transform:scale(1.05);
+}
+.overlay{position:fixed;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.75));z-index:1}
+
+.container{position:relative;z-index:2;width:min(860px,96%);margin:28px auto;padding:28px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03);overflow:hidden}
+
+/* Header */
+.header{display:flex;align-items:center;gap:18px}
+.logo{
+  font-family:Montserrat, sans-serif;text-transform:uppercase;font-weight:900;font-size:56px;letter-spacing:2px;display:flex;align-items:center;gap:10px
+}
+.logo .ff{background:linear-gradient(90deg,var(--accent1),#ff7ab6,#7afcff);-webkit-background-clip:text;background-clip:text;color:transparent;padding:4px 10px;border-radius:8px;transform:skewX(-6deg)}
+.logo .pro{font-size:18px;color:rgba(255,255,255,0.7);font-weight:700}
+
+/* Card */
+.card{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:24px;border-radius:14px;display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:center}
+
+/* Left area */
+.left{display:flex;flex-direction:column;gap:14px}
+.desc{color:rgba(255,255,255,0.75);font-size:14px}
+
+.input-row{display:flex;gap:10px;align-items:center}
+.uid{flex:1;padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;font-size:16px;outline:none}
+.uid:focus{box-shadow:0 6px 22px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.12)}
+
+.btn{padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:15px}
+.btn.connect{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#111}
+.btn.copy{background:rgba(255,255,255,0.04);color:#fff;border:1px solid rgba(255,255,255,0.03)}
+
+/* Right preview */
+.preview{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.status{font-weight:800;font-size:18px;min-height:38px;display:flex;align-items:center;gap:10px}
+.sub{color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px}
+
+.hidden{opacity:0;pointer-events:none;transform:translateY(8px);transition:all .45s ease}
+.visible{opacity:1;pointer-events:auto;transform:translateY(0);transition:all .45s cubic-bezier(.2,.9,.3,1)}
+
+.roombox{margin-top:12px;padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,0.03)}
+.roombox .code{font-weight:900;letter-spacing:1px}
+
+/* small UI */
+.muted{color:rgba(255,255,255,0.6);font-size:13px}
+
+/* spinner */
+.spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.12);border-top-color:rgba(255,255,255,0.9);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* responsive */
+@media(max-width:800px){.card{grid-template-columns:1fr;}.logo{font-size:40px}.logo .pro{display:none}}
+
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden></div>
+  <div class="overlay" aria-hidden></div>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <span class="ff">Free Fire</span>
+        <span class="pro">— Pro Connect</span>
+      </div>
+    </div><div class="card">
+  <div class="left">
+    <div class="desc">Enter your Free Fire <strong>UID</strong> below. When a user taps <em>Connect</em>, the system will simulate a secure connection — after 5 seconds it will show <strong>Connected</strong> and reveal the room & password details.</div>
+
+    <div class="input-row">
+      <input id="uid" class="uid" placeholder="Enter your UID (e.g. 123456789)" inputmode="numeric" />
+      <button id="connectBtn" class="btn connect">Connect</button>
+    </div>
+
+    <div id="note" class="muted">Tip: Use a valid numeric UID for best experience. This is a demo UI — behavior is simulated for visuals and UX.</div>
+  </div>
+
+  <div class="preview">
+    <div id="status" class="status">Status: <span id="statusText">Not connected</span></div>
+    <div id="statusSub" class="sub">You must enter UID and click Connect. Room & password will appear only after connection completes.</div>
+
+    <div id="secrets" class="hidden">
+      <div class="roombox">
+        <div>
+          <div class="muted">Room</div>
+          <div class="code">7372063846</div>
+        </div>
+        <div><button class="btn copy" data-copy="7372063846">Copy</button></div>
+      </div>
+
+      <div class="roombox" style="margin-top:10px">
+        <div>
+          <div class="muted">Password</div>
+          <div class="code">43158</div>
+        </div>
+        <div><button class="btn copy" data-copy="43158">Copy</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div style="margin-top:16px;color:rgba(255,255,255,0.65);font-size:13px">Designed professional — animated background included. Built for demo & UI/UX showcase.</div>
+
+  </div>  <script>
+    const uidInput = document.getElementById('uid');
+    const btn = document.getElementById('connectBtn');
+    const statusText = document.getElementById('statusText');
+    const secrets = document.getElementById('secrets');
+    const statusSub = document.getElementById('statusSub');
+
+    function shake(el){
+      el.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:500,easing:'ease'});
+    }
+
+    btn.addEventListener('click', ()=>{
+      const uid = uidInput.value.trim();
+      if(!uid){
+        shake(uidInput);
+        statusText.textContent = 'Enter UID first';
+        return;
+      }
+
+      // start connecting
+      btn.disabled = true; uidInput.disabled = true;
+      statusText.innerHTML = '<span class="spinner"></span> Connecting...';
+      statusSub.textContent = 'Please wait — establishing secure connection.';
+
+      // simulate 5 second connect
+      setTimeout(()=>{
+        statusText.textContent = 'Connected ✅ (UID: ' + uid + ')';
+        statusSub.textContent = 'Connection established. Room & password are now visible.';
+        secrets.classList.remove('hidden'); secrets.classList.add('visible');
+        btn.textContent = 'Connected';
+        btn.classList.remove('connect');
+        btn.classList.add('copy');
+        btn.disabled = false;
+      }, 5000);
+    });
+
+    // copy buttons
+    document.addEventListener('click', (e)=>{
+      if(e.target.matches('.btn.copy')){
+        const txt = e.target.getAttribute('data-copy');
+        if(txt){navigator.clipboard.writeText(txt).then(()=>{e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy',1400)}).catch(()=>{alert('Copy failed')})}
+      }
+    });
+  </script></body>
+</html>
