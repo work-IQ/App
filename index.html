@@ -1,150 +1,141 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Free Fire — Pro Connect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire Connect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#070710;--card:rgba(255,255,255,0.04);--glass:rgba(255,255,255,0.03);--accent1:#ff3b3b;--accent2:#ffd23b}
-    *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Nunito,system-ui,Arial;color:#fff}
-    body{display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}.bg{position:fixed;inset:0;z-index:0;background-position:center;background-size:cover;background-repeat:no-repeat;filter:blur(2px) brightness(0.45) saturate(1.2);background-image:url('https://i.imgur.com/6YqYhQX.gif');transform:scale(1.05);}
-.overlay{position:fixed;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.75));z-index:1}
-
-.container{position:relative;z-index:2;width:min(860px,96%);margin:28px auto;padding:28px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03);overflow:hidden}
-
-.header{display:flex;align-items:center;gap:18px}
-.logo{font-family:Montserrat, sans-serif;text-transform:uppercase;font-weight:900;font-size:56px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
-.logo .ff{background:linear-gradient(90deg,var(--accent1),#ff7ab6,#7afcff);-webkit-background-clip:text;background-clip:text;color:transparent;padding:4px 10px;border-radius:8px;transform:skewX(-6deg)}
-.logo .pro{font-size:18px;color:rgba(255,255,255,0.7);font-weight:700}
-
-.card{margin-top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:24px;border-radius:14px;display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:center}
-
-.left{display:flex;flex-direction:column;gap:14px}
-.desc{color:rgba(255,255,255,0.75);font-size:14px}
-
-.input-row{display:flex;gap:10px;align-items:center}
-.uid{flex:1;padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;font-size:16px;outline:none}
-.uid:focus{box-shadow:0 6px 22px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.12)}
-
-.btn{padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:15px}
-.btn.connect{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#111}
-.btn.copy{background:rgba(255,255,255,0.04);color:#fff;border:1px solid rgba(255,255,255,0.03)}
-
-.preview{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-.status{font-weight:800;font-size:18px;min-height:38px;display:flex;align-items:center;gap:10px}
-.sub{color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px}
-
-.hidden{opacity:0;pointer-events:none;transform:translateY(8px);transition:all .45s ease}
-.visible{opacity:1;pointer-events:auto;transform:translateY(0);transition:all .45s cubic-bezier(.2,.9,.3,1)}
-
-.roombox{margin-top:12px;padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,0.03)}
-.roombox .code{font-weight:900;letter-spacing:1px}
-
-.muted{color:rgba(255,255,255,0.6);font-size:13px}
-.spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.12);border-top-color:rgba(255,255,255,0.9);animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-@media(max-width:800px){.card{grid-template-columns:1fr;}.logo{font-size:40px}.logo .pro{display:none}}
-
-footer{text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,0.7)}
-footer a{color:#ffd23b;text-decoration:none;font-weight:700}
-footer a:hover{text-decoration:underline}
-
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Poppins',sans-serif;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      overflow:hidden;
+      color:#fff;
+    }
+    .bg{
+      position:fixed;
+      top:0;left:0;
+      width:100%;height:100%;
+      z-index:-1;
+      background:url('https://media.giphy.com/media/XZ0Q0N8Ogj2eA/giphy.gif') center/cover no-repeat;
+      filter:brightness(0.4);
+    }
+    .container{
+      width:90%;
+      max-width:400px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:20px;
+      padding:30px;
+      text-align:center;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 25px rgba(255,255,255,0.1);
+    }
+    h1{
+      font-family:'Orbitron',sans-serif;
+      font-size:36px;
+      background:linear-gradient(90deg,#ff0000,#ff7a18,#00fff9);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:20px;
+      letter-spacing:2px;
+    }
+    input{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      outline:none;
+      font-size:16px;
+      margin-bottom:15px;
+      text-align:center;
+      background:rgba(255,255,255,0.1);
+      color:#fff;
+    }
+    button{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      background:linear-gradient(90deg,#ff7a18,#ffb199);
+      color:#000;
+      font-weight:600;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover{opacity:0.85}
+    .status{
+      margin-top:15px;
+      font-weight:600;
+      color:#00ffb7;
+      display:none;
+    }
+    .room{
+      margin-top:15px;
+      display:none;
+      background:rgba(255,255,255,0.05);
+      padding:10px;
+      border-radius:10px;
+    }
+    footer{
+      text-align:center;
+      margin-top:20px;
+      font-size:13px;
+      color:#aaa;
+    }
+    footer a{
+      color:#00bfff;
+      text-decoration:none;
+      font-weight:600;
+    }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden></div>
-  <div class="overlay" aria-hidden></div>
+  <div class="bg"></div>
   <div class="container">
-    <div class="header">
-      <div class="logo">
-        <span class="ff">Free Fire</span>
-        <span class="pro">— Pro Connect</span>
-      </div>
-    </div><div class="card">
-  <div class="left">
-    <div class="desc">Enter your Free Fire <strong>UID</strong> below. When a user taps <em>Connect</em>, the system will simulate a secure connection — after 5 seconds it will show <strong>Connected</strong> and reveal the room & password details.</div>
-
-    <div class="input-row">
-      <input id="uid" class="uid" placeholder="Enter your UID (e.g. 123456789)" inputmode="numeric" />
-      <button id="connectBtn" class="btn connect">Connect</button>
+    <h1>FREE FIRE</h1>
+    <input type="number" id="uid" placeholder="Enter your UID" />
+    <button id="connectBtn">Connect</button>
+    <div class="status" id="statusText">Connecting...</div>
+    <div class="room" id="roomDetails">
+      <p>Room ID: <strong>7372063846</strong></p>
+      <p>Password: <strong>43158</strong></p>
     </div>
-
-    <div id="note" class="muted">Tip: Use a valid numeric UID for best experience. This is a demo UI — behavior is simulated for visuals and UX.</div>
+    <footer>
+      <p>© 2025 Free Fire Max — All Rights Reserved<br>
+      Crafted with ⚡ for gamers worldwide<br>
+      <a href="https://t.me/agentlockx" target="_blank">Contact Support</a></p>
+    </footer>
   </div>
 
-  <div class="preview">
-    <div id="status" class="status">Status: <span id="statusText">Not connected</span></div>
-    <div id="statusSub" class="sub">You must enter UID and click Connect. Room & password will appear only after connection completes.</div>
-
-    <div id="secrets" class="hidden">
-      <div class="roombox">
-        <div>
-          <div class="muted">Room</div>
-          <div class="code">7372063846</div>
-        </div>
-        <div><button class="btn copy" data-copy="7372063846">Copy</button></div>
-      </div>
-
-      <div class="roombox" style="margin-top:10px">
-        <div>
-          <div class="muted">Password</div>
-          <div class="code">43158</div>
-        </div>
-        <div><button class="btn copy" data-copy="43158">Copy</button></div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<footer>
-  © 2025 <strong>Free Fire Max</strong>. All Rights Reserved.<br>
-  Crafted with ⚡ passion for gamers worldwide.<br>
-  <a href="https://t.me/agentlockx" target="_blank">Contact Support</a>
-</footer>
-
-  </div>  <script>
-    const uidInput = document.getElementById('uid');
+  <script>
     const btn = document.getElementById('connectBtn');
+    const uid = document.getElementById('uid');
     const statusText = document.getElementById('statusText');
-    const secrets = document.getElementById('secrets');
-    const statusSub = document.getElementById('statusSub');
-
-    function shake(el){
-      el.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:500,easing:'ease'});
-    }
+    const room = document.getElementById('roomDetails');
 
     btn.addEventListener('click', ()=>{
-      const uid = uidInput.value.trim();
-      if(!uid){
-        shake(uidInput);
-        statusText.textContent = 'Enter UID first';
+      if(uid.value.trim() === ''){
+        alert('Please enter your UID');
         return;
       }
-
-      btn.disabled = true; uidInput.disabled = true;
-      statusText.innerHTML = '<span class="spinner"></span> Connecting...';
-      statusSub.textContent = 'Please wait — establishing secure connection.';
+      btn.disabled = true;
+      statusText.style.display = 'block';
+      statusText.textContent = 'Connecting...';
+      room.style.display = 'none';
 
       setTimeout(()=>{
-        statusText.textContent = 'Connected ✅ (UID: ' + uid + ')';
-        statusSub.textContent = 'Connection established. Room & password are now visible.';
-        secrets.classList.remove('hidden'); secrets.classList.add('visible');
-        btn.textContent = 'Connected';
-        btn.classList.remove('connect');
-        btn.classList.add('copy');
+        statusText.textContent = 'Connected ✅';
+        room.style.display = 'block';
         btn.disabled = false;
       }, 5000);
     });
-
-    document.addEventListener('click', (e)=>{
-      if(e.target.matches('.btn.copy')){
-        const txt = e.target.getAttribute('data-copy');
-        if(txt){navigator.clipboard.writeText(txt).then(()=>{e.target.textContent='Copied';setTimeout(()=>e.target.textContent='Copy',1400)}).catch(()=>{alert('Copy failed')})}
-      }
-    });
-  </script></body>
+  </script>
+</body>
 </html>
